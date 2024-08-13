@@ -32,10 +32,20 @@ export default {
               link === links[links.length - 1] ? ".last-custom-icon" : "";
             const selector = `li.custom-header-icon-link.${className}.${viewClass}${isLastLink}`;
 
-
-            api.headerIcons.add("some-unique-name", `<template>
-              <li><DButton class="icon btn-flat" @href="/u" @icon="address-book" /></li>
-            </template>`)
+            api.headerIcons.add(title, () => {
+              return helper.h(
+                "a.icon.btn-flat",
+                {
+                  href,
+                  title,
+                  target,
+                  attributes: {
+                    rel,
+                  },
+                },
+                icon
+              );
+            }, { before: "search" });
             
 
             // api.decorateWidget("header-icons:before", (helper) => {
